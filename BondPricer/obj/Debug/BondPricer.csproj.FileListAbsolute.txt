@@ -8,3 +8,4 @@ C:\Users\User\Desktop\Bond-Pricer\BondPricer\obj\Debug\BondPricer.csproj.Generat
 C:\Users\User\Desktop\Bond-Pricer\BondPricer\obj\Debug\BondPricer.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Bond-Pricer\BondPricer\obj\Debug\BondPricer.exe
 C:\Users\User\Desktop\Bond-Pricer\BondPricer\obj\Debug\BondPricer.pdb
+C:\Users\User\Desktop\Bond-Pricer\BondPricer\obj\Debug\BondPricer.Form1.resources
