@@ -1,4 +1,6 @@
-﻿namespace BondPricer
+﻿using System.Windows.Forms;
+
+namespace BondPricer
 {
     partial class Form1
     {
@@ -55,16 +57,16 @@
             this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Face Value:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+     
             // 
-            // textBox1
+            // textBox1 code for bond face value 
             // 
             this.textBox1.Location = new System.Drawing.Point(99, 412);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(79, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // label2
+            // label2 
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -74,7 +76,7 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Coupon Rate:";
             // 
-            // textBox2
+            // textBox2 code for bond coupon rate 
             // 
             this.textBox2.Location = new System.Drawing.Point(276, 409);
             this.textBox2.Name = "textBox2";
@@ -91,7 +93,7 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Maturity Rate:";
             // 
-            // textBox3
+            // textBox3 code for maturity rate 
             // 
             this.textBox3.Location = new System.Drawing.Point(479, 409);
             this.textBox3.Name = "textBox3";
@@ -108,14 +110,14 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Payment Frequency:\r\n\r\n";
             // 
-            // textBox4
+            // textBox4 code for payment frequency 
             // 
             this.textBox4.Location = new System.Drawing.Point(719, 408);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 7;
             // 
-            // button1
+            // button1 button for bond pricing 
             // 
             this.button1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(351, 442);
@@ -124,6 +126,8 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Caclulate Bond Price";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+
             // 
             // chart1
             // 
@@ -151,7 +155,7 @@
             this.label5.Size = new System.Drawing.Size(172, 32);
             this.label5.TabIndex = 10;
             this.label5.Text = "Bond-Pricer";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+           
             // 
             // Form1
             // 
@@ -171,7 +175,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            //this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -180,7 +184,7 @@
 
         #endregion
 
-       
+
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
@@ -193,6 +197,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label5;
+
     }
 }
-
