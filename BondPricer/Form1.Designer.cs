@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Linq;
@@ -133,7 +132,6 @@ namespace BondPricer
             this.button1.Text = "Caclulate Bond Price";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-
             // 
             // chart1
             // 
@@ -201,7 +199,7 @@ namespace BondPricer
 
         #endregion
 
-
+        private const int RandomSeed = 12345;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
@@ -257,31 +255,26 @@ namespace BondPricer
             chart1.Series["Interest Rate Path"].Points.Clear();
             chart1.Series["Monte Carlo Simulation"].Points.Clear();
 
-            // Generate interest rate path using the Hull-White model
-            HullWhiteModel hullWhiteModel = new HullWhiteModel();
-            double[] interestRatePath = hullWhiteModel.GenerateInterestRatePath(maturityRate, paymentFrequency);
+            Random random = new Random(RandomSeed);
 
+            // Generate interest rate path using the Hull-White model with the fixed seed
+            HullWhiteModel hullWhiteModel = new HullWhiteModel();
+
+            double[] interestRatePath = hullWhiteModel.GenerateInterestRatePath(maturityRate, paymentFrequency, random);
             // Perform bond pricing calculations using the interest rate path
             double bondPrice = CalculateBondPrice(faceValue, couponRate, maturityRate, paymentFrequency, interestRatePath);
-
             // Display the calculated bond price in the label
             this.label6.Text = "The bond price at maturity is: " + bondPrice.ToString("0.00");
-
             // Calculate the total number of time periods
             int totalPeriods = (int)(maturityRate * paymentFrequency);
-
-
 
             // Connect the first and last points of the mean reversion line
             chart1.Series["Interest Rate Path"].Points.AddXY(0, interestRatePath[0]);
             chart1.Series["Interest Rate Path"].Points.AddXY(maturityRate, interestRatePath[totalPeriods]);
 
-
             // Perform Monte Carlo simulation
-            Random random = new Random();
             int numSimulations = 100; // Number of Monte Carlo simulations
             double[] monteCarloPrices = new double[numSimulations];
-
             for (int i = 0; i < numSimulations; i++)
             {
                 double[] simulatedInterestRatePath = hullWhiteModel.GenerateInterestRatePath(maturityRate, paymentFrequency, random);
@@ -290,23 +283,22 @@ namespace BondPricer
             }
 
             // Display all Monte Carlo simulations on the chart
-            for (int i = 0; i < numSimulations; i++)
-            {
-                // Add the face value as the first data point for each simulation
-                chart1.Series["Monte Carlo Simulation"].Points.AddXY(0, faceValue);
-
-                for (int j = 0; j < monteCarloPrices.Length; j++)
+                for (int i = 0; i < numSimulations; i++)
                 {
-                    double time = (j + 1) / (double)paymentFrequency;
-                    chart1.Series["Monte Carlo Simulation"].Points.AddXY(time, monteCarloPrices[j]);
+                    // Add the face value as the first data point for each simulation
+                    chart1.Series["Monte Carlo Simulation"].Points.AddXY(0, faceValue);
+
+                    for (int j = 0; j < monteCarloPrices.Length; j++)
+                    {
+                        double time = (j + 1) / (double)paymentFrequency;
+                        chart1.Series["Monte Carlo Simulation"].Points.AddXY(time, monteCarloPrices[j]);
+                    }
                 }
             }
-        }
 
         // Perform bond pricing calculations using the interest rate path
         private double CalculateBondPrice(double faceValue, double couponRate, double maturityRate, int paymentFrequency, double[] interestRatePath)
         {
-
             // Placeholder implementation, calculating bond price as sum of present values of cash flows
             double bondPrice = 0.0;
             double discountFactor;
@@ -324,7 +316,6 @@ namespace BondPricer
             return bondPrice;
         }
     }
-
     public class HullWhiteModel
     {
         public double[] GenerateInterestRatePath(double maturityRate, int paymentFrequency)
@@ -352,10 +343,6 @@ namespace BondPricer
             {
                 interestRatePath[i] = random.NextDouble(); // Replace with your Hull-White model logic
             }
-
-
-
-
             return interestRatePath;
         }
     }
